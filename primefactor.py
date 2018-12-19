@@ -1,10 +1,10 @@
 import sys
+import time
 
 cache = {}
 
 
 def get_factors(n):
-
     if n in cache:
         return cache[n]
     factors = []
@@ -30,7 +30,7 @@ def get_factors(n):
 def run_reduction(x):
     count = 1
     (factors, sum_factors) = get_factors(x)
-    while not factors[0] == x and not x == sum_factors:
+    while not factors[0] == x and not sum_factors == x:
         x = sum_factors
         count = count + 1
         (factors, sum_factors) = get_factors(x)
@@ -40,8 +40,11 @@ def run_reduction(x):
 if __name__ == '__main__':
     results = []
     for line in sys.stdin:
+        start = time.time()
         number = int(line.strip())
-        result = run_reduction(number)
-        results.append("{} {}".format(result[0], result[1]))
+        if not number == 4:
+            result = run_reduction(number)
+            end = time.time()
+            results.append("{value:05f} {number} {r0} {r1}".format(value=(end-start), number=number, r0=result[0], r1=result[1]))
     print("\n".join(results))
 
