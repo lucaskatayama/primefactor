@@ -1,5 +1,4 @@
 import sys
-import time
 
 
 def get_factors(n):
@@ -32,9 +31,9 @@ def run_reduction(x):
     count = 1
     (factors, sum_factors) = get_factors(x)
     while not factors[0] == x:
-        (factors, sum_factors) = get_factors(x)
         x = sum_factors
         count += 1
+        (factors, sum_factors) = get_factors(x)
     return x, count
 
 
